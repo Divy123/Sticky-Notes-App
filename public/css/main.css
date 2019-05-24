@@ -4,7 +4,7 @@
 }
 
 body{
-    background: url("./assets/images/form-background.jpg") ;
+    background: url("../assets/images/form-background.jpg") ;
     width: 100%;
   max-width: 1920px; /* YOUR BG MAX SIZE */
  
@@ -45,3 +45,24 @@ body{
     font-family: 'Montaga', serif;
 
 }
+
+.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .closebtn:hover {
+    color: black;
+  }
