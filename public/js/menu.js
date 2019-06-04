@@ -42,11 +42,17 @@ function openMenu(event) {
 }
 
 
-function updateNote(event) {
+function updateNote(e) {
     if (!e) var e = window.event;
     e.cancelBubble = true;
     if (e.stopPropagation) e.stopPropagation();
-    console.log(e.target)
+    var id = e.target.closest(".more").id
+    return fetch('http://localhost:3000/edit/'+id,{
+        method:'get'
+    }).then(res=>{
+        console.log(res)
+        window.location.href=res.url;
+    })
 }
 
 function deleteNote(e) {
@@ -73,18 +79,17 @@ function toggleReminder(e) {
     if (e.stopPropagation) e.stopPropagation();
     var id = e.target.closest(".more").id
     const url = 'http://localhost:3000/list-note'
-    var remind = (e.target.innerHTML.trim() === 'Set reminder')?false:true;
-    const body = JSON.stringify({remind})
+    var remind = (e.target.innerHTML.trim() === 'Set reminder') ? false : true;
+    const body = JSON.stringify({
+        remind
+    })
     return fetch(url + '/' + id, {
             method: 'PATCH',
             body: body,
-            headers: {
-                "Content-Type": "application/json"
-            }
         })
         .then(response =>
             response.json().then(json => {
-                if (json.message == 'ok') 
+                if (json.message == 'ok')
                     window.location.reload();
             })
         )

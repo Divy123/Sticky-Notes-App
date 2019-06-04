@@ -1,0 +1,53 @@
+.center_div{
+    width: 40%;
+    margin-top: 4%;
+}
+
+body{
+    background: url("../assets/images/form-background.jpg") ;
+    width: 100%;
+  max-width: 1920px; /* YOUR BG MAX SIZE */
+ 
+  background-size: 100%;
+}
+
+.submit{
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10%;
+}
+
+.add-btn{
+    background-color: #1a1f28;
+    border: none;
+}
+
+.add-btn:hover{
+    background-color: #1a1f28;
+    border: none;
+}
+
+.input-label{
+    margin-left: 45%;
+    font-size:1.25em;
+    color: #1c0016;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size:1.4em;
+
+}
+
+.form-wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 6%;
+    font-family: 'Montaga', serif;
+
+}
+
+.form-check-label{
+    font-size:1.1em;
+    color: #1c0016;
+
+}

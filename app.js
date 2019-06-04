@@ -35,12 +35,33 @@ app.use(session({
   app.use(flash());
 
 
-
+app.post('/edit/',(req,res)=>{
+    const time = req.body.time
+    const noteText = req.body.note
+    const remind = (req.body.reminder ==='on')?true:false
+    const noteData = {
+        time,
+        noteText,
+        remind
+    }
+    Note.findOneAndUpdate( {"time": noteData.time}, noteData, function (err, result) {
+        if (err) { 
+            console.log(err)
+         }
+         res.status(200).redirect('/list-note');
+})
+});
 
 app.get("/", (req, res) => {
     res.status(200).render('index');
-    // req.flash('info', 'Add a note');
+    
 });
+
+app.get("/edit/:id", (req,res)=>{
+    Note.findOne( {"time": req.params.id}, function (err, result) {
+    res.render('update-form',result)
+})
+})
 
 app.post('/list-note', (req, res) => {
     const time = req.body.time
@@ -94,7 +115,8 @@ app.delete('/list-note/:id',(req,res)=>{
             console.log(err)
             res.status(404).send({"message":"Note not found"})
          }
-    res.status(200).send({"message":"ok"})
+         var obj = {...result, message:"ok"}
+    res.status(200).send(JSON.stringify(obj))
 })
 })
 
