@@ -23,9 +23,9 @@
 
 <body>
     {{#if messages.error}}
-    <div class="alert">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <div class="alert alert-warning alert-dismissible fade show">
         {{messages.error}}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
     </div>
     {{/if}}
 
@@ -45,6 +45,10 @@
                     <label for="inputNote" class="input-label">Note</label>
                     <textarea class="form-control" id="inputNote" name="note" placeholder="Your note here"
                         required></textarea>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1" name = "reminder">
+                    <label class="form-check-label" for="exampleCheck1">Remind Me</label>
                 </div>
                 <div class="submit">
                     <button type="submit" class="btn btn-primary add-btn">Add Note</button>

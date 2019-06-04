@@ -13,7 +13,7 @@ var Note = mongoose.model("Note", notesSchema);
 
 var viewsPath = path.join(__dirname, './templates/views');
 var partialsPath = path.join(__dirname, './templates/partials');
-var port = process.env.port || 3000;
+var port = 3000;
 
 app.set('view engine', 'hbs');
 app.set('views', viewsPath)
@@ -43,17 +43,23 @@ app.get("/", (req, res) => {
 });
 
 app.post('/list-note', (req, res) => {
+    console.log(req.body.reminder)
     const time = req.body.time
     const noteText = req.body.note
+    const remind = (req.body.reminder ==='on')?true:false
+    console.log(remind)
     const noteData = {
         time,
-        noteText
+        noteText,
+        remind
     }
-    var foundNote = Note.findOne({
-        "time": noteData.time
-    });
-    if (!foundNote) {
-        var note = new Note(noteData);
+
+    Note.findOne( {"time": noteData.time}, function (err, result) {
+        if (err) { 
+            console.log(err)
+         }
+        if (!result) {
+            var note = new Note(noteData);
         note.save()
             .then(item => {
                 res.status(200).redirect('/list-note');
@@ -61,11 +67,14 @@ app.post('/list-note', (req, res) => {
             .catch(err => {
                 res.status(400).send("unable to save to database");
             });
-    } else {
-        req.flash('error','Note already exists');
-        res.redirect('/');
-    }
+        }
+        else {
+                req.flash('error','Note already exists');
+                res.redirect('/');
+            }
+    });
 })
+
 
 app.get("/list-note", (req, res) => {
     var time = [],
@@ -78,6 +87,29 @@ app.get("/list-note", (req, res) => {
     })
 
 
+})
+
+app.delete('/list-note/:id',(req,res)=>{
+    console.log(req.params.id);
+    Note.findOneAndDelete( {"time": req.params.id}, function (err, result) {
+        if (err) { 
+            console.log(err)
+            res.status(404).send({"message":"Note not found"})
+         }
+    res.status(200).send({"message":"ok"})
+})
+})
+
+app.patch('/list-note/:id',(req,res)=>{
+    console.log(req.body.remind)
+    Note.findOneAndUpdate({"time": req.params.id},{"remind":!req.body.remind},function (err, result) {
+        if (err) { 
+            console.log(err)
+            res.status(404).send({"message":"Note not found"})
+         }
+         console.log(result)
+    res.status(200).send({"message":"ok"})
+})
 })
 
 

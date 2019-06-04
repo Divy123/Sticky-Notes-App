@@ -1,69 +1,60 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="utf-8" />
-<title>Sticky notes using CSS3 and Google Fonts (Step 5)</title>
-<link  href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css"> 
-<link rel="stylesheet" href="/css/notes.css">
+    <meta charset="utf-8" />
+    <title>Sticky notes using CSS3 and Google Fonts (Step 5)</title>
+    <link href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/notes.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
 </head>
+
 <body>
-  <ul>
-      {{#each docs}}
-    <li>
-      <a href="#">
-        <h2>{{this.time}}</h2>
-        <p>{{this.noteText}}</p>
-      </a>
-    </li>
-    {{/each}}
-    {{!-- <li>
-      <a href="#">
-        <h2>Title #2</h2>
-        <p>Text Content #2</p>
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <h2>Title #3</h2>
-        <p>Text Content #3</p>
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <h2>Title #4</h2>
-        <p>Text Content #4</p>
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <h2>Title #5</h2>
-        <p>Text Content #5</p>
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <h2>Title #6</h2>
-        <p>Text Content #6</p>
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <h2>Title #2</h2>
-        <p>Text Content #2</p>
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <h2>Title #7</h2>
-        <p>Text Content #7</p>
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <h2>Title #8</h2>
-        <p>Text Content #8</p>
-      </a>
-    </li> --}}
-  </ul>
+    <ul>
+        {{#each docs}}
+        <li class="note" id={{this.time}}>
+            <a href="#">
+                <div class="container">
+                    <div class="more" id={{this.time}} onclick="openMenu(event)">
+                        <button id={{this.time}} class="more-btn">
+                            <span id={{this.time}} class="more-dot"></span>
+                            <span id={{this.time}} class="more-dot"></span>
+                            <span id={{this.time}} class="more-dot"></span>
+                        </button>
+                        <div class="more-menu">
+                            <div class="more-menu-caret">
+                                <div class="more-menu-caret-outer"></div>
+                                <div class="more-menu-caret-inner"></div>
+                            </div>
+                            <ul class="more-menu-items" tabindex="-1" role="menu" aria-labelledby="more-btn"
+                                aria-hidden="true">
+                                <li class="more-menu-item" role="presentation">
+                                    <button type="button" class="more-menu-btn" role="menuitem" onclick="updateNote(event)">Update me</button>
+                                </li>
+                                <li class="more-menu-item" role="presentation" >
+                                    <button type="button"  class="more-menu-btn" role="menuitem" onclick="deleteNote(event)" >Delete</button>
+                                </li>
+                                <li class="more-menu-item" role="presentation">
+                                    <button type="button"  class="more-menu-btn"  role="menuitem"  onclick="toggleReminder(event)">
+                                        {{#if this.remind}}
+                                        Unset Reminder
+                                        {{else}}
+                                        Set reminder
+                                        {{/if}}
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <h2 onclick='deleteNote(event)'>{{this.time}}</h2>
+                <p>{{this.noteText}}</p>
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+    <script src="/js/menu.js"></script>
 </body>
+
 </html>
