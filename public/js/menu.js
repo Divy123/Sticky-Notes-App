@@ -53,7 +53,6 @@ function deleteNote(e) {
     if (!e) var e = window.event;
     e.cancelBubble = true;
     if (e.stopPropagation) e.stopPropagation();
-    console.log(e.target.closest(".more").id)
     var id = e.target.closest(".more").id
     const url = 'http://localhost:3000/list-note'
     return fetch(url + '/' + id, {
@@ -74,8 +73,7 @@ function toggleReminder(e) {
     if (e.stopPropagation) e.stopPropagation();
     var id = e.target.closest(".more").id
     const url = 'http://localhost:3000/list-note'
-    console.log(e.target.innerHTML.trim())
-    var remind = (e.target.innerHTML.trim() === 'Set reminder')?true:false;
+    var remind = (e.target.innerHTML.trim() === 'Set reminder')?false:true;
     const body = JSON.stringify({remind})
     return fetch(url + '/' + id, {
             method: 'PATCH',

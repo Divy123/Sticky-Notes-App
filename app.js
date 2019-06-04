@@ -43,11 +43,9 @@ app.get("/", (req, res) => {
 });
 
 app.post('/list-note', (req, res) => {
-    console.log(req.body.reminder)
     const time = req.body.time
     const noteText = req.body.note
     const remind = (req.body.reminder ==='on')?true:false
-    console.log(remind)
     const noteData = {
         time,
         noteText,
@@ -101,13 +99,11 @@ app.delete('/list-note/:id',(req,res)=>{
 })
 
 app.patch('/list-note/:id',(req,res)=>{
-    console.log(req.body.remind)
     Note.findOneAndUpdate({"time": req.params.id},{"remind":!req.body.remind},function (err, result) {
         if (err) { 
             console.log(err)
             res.status(404).send({"message":"Note not found"})
          }
-         console.log(result)
     res.status(200).send({"message":"ok"})
 })
 })
