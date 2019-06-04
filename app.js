@@ -72,7 +72,11 @@ app.post('/list-note', (req, res) => {
         noteText,
         remind
     }
-
+    var today = new Date();
+    var hours = (today.getHours()<10)?'0'+today.getHours():today.getHours()
+    var min = (today.getMinutes() <10 )?'0'+today.getMinutes():today.getMinutes()
+    var currentTime = hours+ ":" + min;
+    if(noteData.time.localeCompare(currentTime)>0){
     Note.findOne( {"time": noteData.time}, function (err, result) {
         if (err) { 
             console.log(err)
@@ -92,6 +96,11 @@ app.post('/list-note', (req, res) => {
                 res.redirect('/');
             }
     });
+}
+else{
+    req.flash('error','Sorry but the time has passed');
+    res.redirect('/');
+}
 })
 
 
@@ -99,7 +108,9 @@ app.get("/list-note", (req, res) => {
     var time = [],
         noteText = [];
     Note.find({}).then((docs) => {
-
+        docs.sort(function (a, b) {
+            return ('' + a.time).localeCompare(b.time);
+        })
         res.render('notes', {
             docs
         })
