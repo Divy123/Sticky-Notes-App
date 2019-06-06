@@ -6,6 +6,16 @@ const hbs = require('hbs');
 const flash = require('express-flash');
 const session = require('express-session');
 
+const CronJob = require('cron').CronJob;
+
+console.log('Before job instantiation');
+const job = new CronJob('00 00 00 * * *', function() {
+	const d = new Date();
+	clearAllNotes()
+});
+console.log('After job instantiation');
+job.start();
+
 
 var mongoose = require('./mongoose').mongoose;
 var notesSchema = require('./mongoose').notesSchema;
@@ -14,6 +24,8 @@ var Note = mongoose.model("Note", notesSchema);
 var viewsPath = path.join(__dirname, './templates/views');
 var partialsPath = path.join(__dirname, './templates/partials');
 var port = 3000;
+
+
 
 app.set('view engine', 'hbs');
 app.set('views', viewsPath)
@@ -34,6 +46,12 @@ app.use(session({
   // initialise the flash middleware
   app.use(flash());
 
+  function clearAllNotes(){
+    Note.deleteMany({}, function (err) {
+        if(err)
+        console.log(err)
+    });
+}
 
 app.post('/edit/',(req,res)=>{
     const time = req.body.time
