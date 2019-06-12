@@ -61,7 +61,7 @@ var Note = mongoose.model("Note", notesSchema);
 
 var viewsPath = path.join(__dirname, './templates/views');
 var partialsPath = path.join(__dirname, './templates/partials');
-var port = 3000;
+var port = process.env.port||3000;
 
 
 
