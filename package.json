@@ -18,5 +18,8 @@
     "hbs": "^4.0.4",
     "mongoose": "^5.5.10",
     "nodemailer": "^6.2.1"
+  },
+  "engines": {
+    "node":"8.9.1"
   }
 }
