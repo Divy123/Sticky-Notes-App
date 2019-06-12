@@ -8,6 +8,7 @@ const session = require('express-session');
 const CronJob = require('cron').CronJob;
 const nodemailer = require('nodemailer');
 require('dotenv').config();
+const MongoStore = require('connect-mongo')(session);
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -77,6 +78,7 @@ app.use(express.static('public'))
 
 app.use(session({
     secret: "hey this is my secret key by Divy",
+    store: new MongoStore(options),
     resave: false,
     saveUninitialized: true
 }));
