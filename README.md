@@ -1,12 +1,10 @@
 # Sticky Notes App
-
+It is a web-app that has an interface which lets one add their daily tasks. From doing breakfast to getting at your desk to study, it schedules it all.
 
 ## Features
-
-* It is a web-app that has an interface which lets one add their daily tasks. From doing breakfast to getting at your desk to study, it schedules it all.
 * It also has several other features like setting the priority of tasks as important.
-* They also can mark the tasks as done, deleting the tasks, updating them as and when they require. 
-* The app sends email notifications as well for the upcoming tasks as required by the user.
+* You also can mark the tasks as done, deleting the tasks, updating them as and when you require. 
+* The app sends email notifications as well for the upcoming tasks as required by you.
 * It is very simple to use and setup for anyone.
 
 ## Installation
